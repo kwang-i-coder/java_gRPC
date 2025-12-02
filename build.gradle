@@ -1,0 +1,55 @@
+plugins {
+    id 'java'
+    id 'com.google.protobuf' version '0.9.4'
+}
+
+group = 'com.network.grpc'
+version = '1.0-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.25.1"
+    }
+    plugins {
+        grpc {
+            artifact = 'io.grpc:protoc-gen-grpc-java:1.77.0'
+        }
+    }
+    generateProtoTasks {
+        all()*.plugins {
+            grpc {}
+        }
+    }
+}
+
+dependencies {
+    runtimeOnly 'io.grpc:grpc-netty-shaded:1.77.0'
+    implementation 'io.grpc:grpc-protobuf:1.77.0'
+    implementation 'io.grpc:grpc-stub:1.77.0'
+    implementation 'com.google.protobuf:protobuf-java:3.25.1'
+
+    compileOnly 'org.apache.tomcat:annotations-api:6.0.53'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs 'build/generated/source/proto/main/grpc'
+            srcDirs 'build/generated/source/proto/main/java'
+        }
+    }
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
