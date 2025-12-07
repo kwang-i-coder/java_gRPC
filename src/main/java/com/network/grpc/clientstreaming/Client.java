@@ -25,7 +25,7 @@ public class Client {
         StreamObserver<Number> responseObserver = new StreamObserver<Number>() {
             @Override
             public void onNext(Number response) {
-                System.out.println("[server to client] + " + response.getValue());
+                System.out.println("[server to client] " + response.getValue());
             }
 
             @Override
@@ -44,8 +44,6 @@ public class Client {
         for (int i = 1; i <= 5; i++) {
             String text = "message #" + i;
             Message msg =  makeMessage(text);
-
-            System.out.println("[client to server] " + text);
 
             System.out.println("[client to server] " + text);
 
