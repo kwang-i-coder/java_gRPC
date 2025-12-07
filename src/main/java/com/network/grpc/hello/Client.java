@@ -27,5 +27,7 @@ public class Client {
 
         // (7) 결과
         System.out.println("gRPC result:" + response.getValue());
+
+        channel.shutdown();
     }
 }
